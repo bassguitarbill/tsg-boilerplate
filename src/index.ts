@@ -1,9 +1,16 @@
+import Game from './Game.js';
+
+
 let canvas: HTMLCanvasElement;
 
 window.addEventListener('load', async () => {
   canvas = document.createElement('canvas');
   document.body.appendChild(canvas);
   sizeCanvas();
+
+  const game = new Game();
+  game.run(0);
+
 });
 
 function sizeCanvas() {
