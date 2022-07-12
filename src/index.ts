@@ -1,4 +1,5 @@
 import Game from './Game.js';
+import { load as loadImages } from './images.js';
 
 
 let canvas: HTMLCanvasElement;
@@ -7,8 +8,10 @@ window.addEventListener('load', async () => {
   canvas = document.createElement('canvas');
   document.body.appendChild(canvas);
   sizeCanvas();
+ 
+  await loadImages();
 
-  const game = new Game();
+  const game = new Game(canvas);
   game.run(0);
 
 });
@@ -16,7 +19,7 @@ window.addEventListener('load', async () => {
 function sizeCanvas() {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
-  // canvas.getContext('2d')!.imageSmoothingEnabled = false;
+  canvas.getContext('2d')!.imageSmoothingEnabled = false;
   // By default, pixelated images will get smoothed
   // Enable this to get those crisp, clean pixels
 }

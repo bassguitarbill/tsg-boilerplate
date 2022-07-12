@@ -1,0 +1,44 @@
+#!/usr/local/bin/node
+
+const fs = require('fs');
+const fsPromises = fs.promises;
+//import fs from 'fs';
+
+const manifest = {}
+
+const imageDir = process.argv[2]
+
+async function addFile(filename, path) {
+  const stats = await fsPromises.stat(path + '/' + filename)
+  if (stats.isDirectory()) {
+    await addDirectory(filename, path);
+  } else {
+    addImage(filename, path);
+  }
+}
+
+async function addDirectory(filename, path) {
+  console.log('adding directory ', filename, path)
+  const pathFragments = path.split('/');
+  let manifestPath = manifest
+  for (let frag in pathFragments) {
+    manifestPath = manifestPath[pathFragments[frag]];
+  }
+  console.log('manifestPath', manifestPath)
+
+  const fullPath = path + '/' + filename;
+  const files = await fsPromises.readdir(fullPath);
+  await Promise.all(files.map(async f => await addFile(f, fullPath)));
+}
+
+function addImage(filename, path) {
+  const fileWithoutExtension = filename.split('.').slice(0, -1).join('.');
+  const pathFragments = path.split('/');
+  let manifestPath = manifest
+  for (let frag in pathFragments) {
+    manifestPath = manifestPath[pathFragments[frag]];
+  }
+  manifestPath[fileWithoutExtension] = path + '/' + filename;
+}
+
+addDirectory('images', '.')
