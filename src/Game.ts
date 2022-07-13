@@ -1,4 +1,5 @@
 import GameObject from './GameObject.js';
+import LogoGameObject from './LogoGameObject.js';
 import images from './images.js';
 
 class Game {
@@ -12,7 +13,7 @@ class Game {
     this.state = GameState.RUNNING;
     this.lastTimestamp = 0;
     this.run = this.run.bind(this);
-    this.gameObjects.push(new GameObject(this, 0, 0));
+    this.gameObjects.push(new LogoGameObject(this, 0, 0));
   }
 
   run(time: number) {
