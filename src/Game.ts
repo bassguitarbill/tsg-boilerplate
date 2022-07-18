@@ -27,7 +27,7 @@ class Game {
     }
 
     ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    ctx.drawImage(images['background'], 0, 0, this.canvas.width, this.canvas.height);
+    ctx.drawImage(images('background/desert'), 0, 0, this.canvas.width, this.canvas.height);
     for (let i = 0; i < this.gameObjects.length; i++) {
       this.gameObjects[i].draw(ctx);
     }

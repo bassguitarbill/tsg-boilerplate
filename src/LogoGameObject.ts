@@ -5,7 +5,7 @@ import { isControlPressed, Controls } from './keyboardInput.js';
 
 class LogoGameObject implements GameObject{
   drifting = true;
-  img = images['logo'];
+  img = images('logo');
   constructor(readonly game: Game, public x: number, public y: number) {}
 
   tick(dt: number) {
